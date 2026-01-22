@@ -16,6 +16,7 @@ import (
 
 	"github.com/usememos/memos/internal/profile"
 	storepb "github.com/usememos/memos/proto/gen/store"
+	"github.com/usememos/memos/server/router/ai"
 	apiv1 "github.com/usememos/memos/server/router/api/v1"
 	"github.com/usememos/memos/server/router/fileserver"
 	"github.com/usememos/memos/server/router/frontend"
@@ -68,6 +69,10 @@ func NewServer(ctx context.Context, profile *profile.Profile, store *store.Store
 	rootGroup := echoServer.Group("")
 
 	apiV1Service := apiv1.NewAPIV1Service(s.Secret, profile, store)
+
+	// Register AI Service
+	aiService := ai.NewAIService("")
+	aiService.RegisterRoutes(echoServer.Group("/api/v1"))
 
 	// Register HTTP file server routes BEFORE gRPC-Gateway to ensure proper range request handling for Safari.
 	// This uses native HTTP serving (http.ServeContent) instead of gRPC for video/audio files.

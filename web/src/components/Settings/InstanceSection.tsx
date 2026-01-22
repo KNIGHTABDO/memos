@@ -80,7 +80,7 @@ const InstanceSection = () => {
   return (
     <SettingSection>
       <SettingGroup title={t("common.basic")}>
-        <SettingRow label={t("setting.system-section.server-name")} description={instanceGeneralSetting.customProfile?.title || "Memos"}>
+        <SettingRow label={t("setting.system-section.server-name")} description={instanceGeneralSetting.customProfile?.title || "YouNote"}>
           <Button variant="outline" onClick={handleUpdateCustomizedProfileButtonClick}>
             {t("common.edit")}
           </Button>

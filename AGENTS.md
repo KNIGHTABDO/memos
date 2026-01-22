@@ -11,6 +11,28 @@ Memos is a self-hosted knowledge management platform built with:
 - **Protocol:** Protocol Buffers (v2) with buf for code generation
 - **API Layer:** Dual protocol - Connect RPC (browsers) + gRPC-Gateway (REST)
 
+## 🚨 YouNote Rebrand Protocol (Active)
+
+**Status:** Executed (UI/Text Level)
+**Codename:** Protocol 0 / YouNote
+
+The project has been rebranded from "Memos" to **"YouNote"**.
+Future agents must adhere to the following **Strict Rules**:
+
+1.  **Terminology**:
+    *   **App Name**: "Memos" -> **"YouNote"** (in UI/Docs).
+    *   **Entity**: "Memo" -> **"Note"** (in UI text).
+    *   **Files/Code**: **DO NOT RENAME**. The package name `memos`, Go module `github.com/usememos/memos`, and API `memos.api.v1` **MUST** remain `memos` to preserve build integrity.
+
+2.  **Asset Changes**:
+    *   Logo has been updated to "Nano Banana Pro" style (Glassmorphism 'Y').
+    *   `web/public/logo.webp` and `web/public/full-logo.webp` are the source of truth for assets.
+
+3.  **Known Fixes**:
+    *   `server/router/api/v1/connect_interceptors.go`: Added defensive nil-check for `resp` in `MetadataInterceptor` to prevent 500 errors. Do not revert this.
+
+---
+
 ## Architecture
 
 ### Backend Architecture

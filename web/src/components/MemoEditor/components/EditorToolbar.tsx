@@ -6,7 +6,9 @@ import InsertMenu from "../Toolbar/InsertMenu";
 import VisibilitySelector from "../Toolbar/VisibilitySelector";
 import type { EditorToolbarProps } from "../types";
 
-export const EditorToolbar: FC<EditorToolbarProps> = ({ onSave, onCancel, memoName }) => {
+import { Wand2 } from "lucide-react";
+
+export const EditorToolbar: FC<EditorToolbarProps> = ({ onSave, onCancel, memoName, onAskAI }) => {
   const { state, actions, dispatch } = useEditorContext();
   const { valid } = validationService.canSave(state);
 
@@ -34,6 +36,11 @@ export const EditorToolbar: FC<EditorToolbarProps> = ({ onSave, onCancel, memoNa
           onToggleFocusMode={handleToggleFocusMode}
           memoName={memoName}
         />
+        {onAskAI && (
+          <Button variant="ghost" size="icon" onClick={onAskAI} title="Ask AI">
+            <Wand2 className="w-4 h-4 text-yellow-500" />
+          </Button>
+        )}
       </div>
 
       <div className="flex flex-row justify-end items-center gap-2">

@@ -1,8 +1,12 @@
-# Memos
+# YouNote
 
-<img align="right" height="96px" src="https://raw.githubusercontent.com/usememos/.github/refs/heads/main/assets/logo-rounded.png" alt="Memos" />
+<img align="right" height="96px" src="web/public/logo.png" alt="YouNote" />
 
 An open-source, self-hosted note-taking service. Your thoughts, your data, your control — no tracking, no ads, no subscription fees.
+
+> [!NOTE]
+> This is a rebranding project formerly known as Memos.
+
 
 [![Home](https://img.shields.io/badge/🏠-usememos.com-blue?style=flat-square)](https://usememos.com)
 [![Live Demo](https://img.shields.io/badge/✨-Try%20Demo-orange?style=flat-square)](https://demo.usememos.com/)
@@ -30,11 +34,12 @@ An open-source, self-hosted note-taking service. Your thoughts, your data, your 
 
 ## Overview
 
-Memos is a privacy-first, self-hosted knowledge base that works seamlessly for personal notes, team wikis, and knowledge management. Built with Go and React, it offers lightning-fast performance without compromising on features or usability.
 
-**Why choose Memos over cloud services?**
+YouNote is a privacy-first, self-hosted knowledge base that works seamlessly for personal notes, team wikis, and knowledge management. Built with Go and React, it offers lightning-fast performance without compromising on features or usability.
 
-| Feature           | Memos                          | Cloud Services                |
+**Why choose YouNote over cloud services?**
+
+| Feature           | YouNote                        | Cloud Services                |
 | ----------------- | ------------------------------ | ----------------------------- |
 | **Privacy**       | ✅ Self-hosted, zero telemetry | ❌ Your data on their servers |
 | **Cost**          | ✅ Free forever, MIT license   | ❌ Subscription fees          |
@@ -116,7 +121,7 @@ We welcome contributions of all kinds! Whether you're fixing bugs, adding featur
 
 ## Sponsors
 
-Love Memos? [Sponsor us on GitHub](https://github.com/sponsors/usememos) to help keep the project growing!
+Love YouNote? [Sponsor us on GitHub](https://github.com/sponsors/usememos) to help keep the project growing!
 
 ## Star History
 
@@ -124,11 +129,11 @@ Love Memos? [Sponsor us on GitHub](https://github.com/sponsors/usememos) to help
 
 ## License
 
-Memos is open-source software licensed under the [MIT License](LICENSE).
+YouNote is open-source software licensed under the [MIT License](LICENSE).
 
 ## Privacy Policy
 
-Memos is built with privacy as a core principle. As a self-hosted application, all your data stays on your infrastructure. There is no telemetry, no tracking, and no data collection. See our [Privacy Policy](https://usememos.com/privacy) for details.
+YouNote is built with privacy as a core principle. As a self-hosted application, all your data stays on your infrastructure. There is no telemetry, no tracking, and no data collection. See our [Privacy Policy](https://usememos.com/privacy) for details.
 
 ---
 

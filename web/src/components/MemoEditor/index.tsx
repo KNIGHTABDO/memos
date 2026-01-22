@@ -1,6 +1,7 @@
 import { useQueryClient } from "@tanstack/react-query";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { toast } from "react-hot-toast";
+import AIDialog from "./AIDialog";
 import { useAuth } from "@/contexts/AuthContext";
 import useCurrentUser from "@/hooks/useCurrentUser";
 import { memoKeys } from "@/hooks/useMemoQueries";
@@ -47,6 +48,7 @@ const MemoEditorImpl: React.FC<MemoEditorProps> = ({
   onCancel,
 }) => {
   const t = useTranslate();
+  const [isAIODialogOpen, setIsAIODialogOpen] = useState(false);
   const queryClient = useQueryClient();
   const currentUser = useCurrentUser();
   const editorRef = useRef<EditorRefActions>(null);
@@ -147,9 +149,21 @@ const MemoEditorImpl: React.FC<MemoEditorProps> = ({
         {/* Metadata and toolbar grouped together at bottom */}
         <div className="w-full flex flex-col gap-2">
           <EditorMetadata memoName={memoName} />
-          <EditorToolbar onSave={handleSave} onCancel={onCancel} memoName={memoName} />
+          <EditorToolbar onSave={handleSave} onCancel={onCancel} memoName={memoName} onAskAI={() => setIsAIODialogOpen(true)} />
         </div>
       </div>
+      <AIDialog
+        open={isAIODialogOpen}
+        onOpenChange={setIsAIODialogOpen}
+        contextText={state.content}
+        onApply={(text, mode) => {
+          if (mode === "replace") {
+            editorRef.current?.setContent(text);
+          } else {
+            editorRef.current?.insertText(text);
+          }
+        }}
+      />
     </>
   );
 };

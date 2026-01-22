@@ -23,6 +23,7 @@ export interface EditorContentProps {
 export interface EditorToolbarProps {
   onSave: () => void;
   onCancel?: () => void;
+  onAskAI?: () => void;
   memoName?: string;
 }
 
