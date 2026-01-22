@@ -1,0 +1,77 @@
+# ==========================================
+# Stage 1: Build Frontend (React/Vite)
+# ==========================================
+FROM node:20-alpine AS frontend
+WORKDIR /web
+
+# Install dependencies (cached)
+COPY web/package.json web/pnpm-lock.yaml ./
+RUN npm install -g pnpm && pnpm install --frozen-lockfile
+
+# Copy source and build
+COPY web/ .
+# This builds to ../server/router/frontend/dist (relative to web root)
+RUN pnpm release
+
+# ==========================================
+# Stage 2: Build Backend (Go)
+# ==========================================
+FROM golang:1.25-alpine AS backend
+WORKDIR /workspace
+
+# Install build tools
+RUN apk add --no-cache git
+
+# Download dependencies
+COPY go.mod go.sum ./
+RUN go mod download
+
+# Copy source
+COPY . .
+
+# Copy built frontend assets from Stage 1 to the expected location for embedding
+COPY --from=frontend /server/router/frontend/dist ./server/router/frontend/dist
+
+# Build the binary
+# -tags: netgo (static networking), osusergo (no cgo user lookup)
+# -ldflags: -s -w (strip debug info for smaller binary)
+RUN CGO_ENABLED=0 go build \
+    -trimpath \
+    -tags netgo,osusergo \
+    -ldflags "-s -w -extldflags '-static'" \
+    -o memos \
+    ./cmd/memos
+
+# ==========================================
+# Stage 3: Final Image (Alpine)
+# ==========================================
+FROM alpine:3.21
+
+# Create non-root user for security
+RUN addgroup -S nonroot && adduser -S nonroot -G nonroot
+
+WORKDIR /var/opt/memos
+
+# Install basic runtime dependencies (CA certs for HTTPS, Timezone data)
+RUN apk add --no-cache ca-certificates tzdata
+
+# Copy binary from backend stage
+COPY --from=backend /workspace/memos /usr/local/bin/memos
+
+# Set ownership
+RUN chown -R nonroot:nonroot /var/opt/memos
+
+# Switch to non-root user
+USER nonroot
+
+# Environment defaults
+ENV TZ="UTC" \
+    MEMOS_MODE="prod" \
+    MEMOS_PORT="8081" \
+    MEMOS_DATA="/var/opt/memos"
+
+# Expose the port
+EXPOSE 8081
+
+# Run the server
+CMD ["/usr/local/bin/memos"]
